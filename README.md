@@ -20,7 +20,7 @@
 
 클라이언트 요청 ➡️ 컨트롤러가 요청을 받아 처리하기 위해 서비스로 이동 ➡️ 서비스에서 처리후 다시 Controller로 이동 <br/>
 **(전부Module에 등록하여 사용)**
-### Controller (app.controller.ts)
+### 1. Controller (app.controller.ts)
    1. NestJS에서는 HTTP 요청을 받고 응답을 반환하기위해 Controller 사용 (REST API 엔드포인트 노출)
    2. URI 엔드포인트와 HTTP 요청 메서드를 처리하는 메서드를 정의
 #### Routing 예시
@@ -55,7 +55,7 @@ export class HelloController {
 }
 // request객체를 전부 가져오고 싶다면 @Request
 ```
-### Service (app.service.ts)
+### 2. Service (app.service.ts)
    1. Controller에서 사용할 일반적인 비즈니스 로직을 구현(담당)
    2. 서비스는 컨트롤러와 같은 클래스이며, Injectable 데코레이터를 사용하여 주입
    3. 데이터베이스의 데이터를 가져오거나 외부API 호출등의 데이터 처리
@@ -111,7 +111,7 @@ export class AppController {
   }
 }
 ```
-### Module (app.module.ts)
+### 3. Module (app.module.ts)
 NestJS에서 모듈은 여러 컴포넌트를 조합하여 좀 더 큰 작업을 수행할 수 있게 하는 단위이며 '@Module()' 데코레이터가 붙은 클래스를 의미, Nest가 전체 어플리케이션의 구조를 만들어나가는데 사용하기 위한 메타데이터를 제공
 > #### 컴포넌트?
 > 재사용 가능한 구성 요소
