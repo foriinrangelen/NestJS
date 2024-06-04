@@ -8,14 +8,13 @@
 > #### 데코레이터?
 > 1. 데코레이터는 함수나 클래스 등의 코드 요소에 기능을 추가하거나 수정하는 데 사용되는 고차 함수(higher-order function)
 > 2. NestJS에서 데코레이터는 클래스, 메서드, 프로퍼티, 파라미터 등에 메타데이터를 추가하여 다양한 기능을 구현하는 데 사용
-> 3. NestJS의 주요 데코레이터
+> 3. 해당 코드의 동작을 선언적으로 수정하거나 확장
+> 4. NestJS의 주요 데코레이터
 >    - @Controller(): 컨트롤러 클래스를 정의하는 데 사용
 >    - @Get(), @Post(), @Put(), @Delete(): HTTP 요청 메서드를 라우팅하는 데 사용
 >    - @Injectable(): 서비스 클래스를 정의하는 데 사용
 >    - @Module(): 모듈을 정의하는 데 사용
 >    - @Inject(): 의존성 주입을 수행하는 데 사용
-
-
 
 ## NestJS의 기본구조 ( Controller, Service, Module )
 
@@ -24,9 +23,94 @@
 ### Controller (app.controller.ts)
    1. NestJS에서는 HTTP 요청을 받고 응답을 반환하기위해 Controller 사용 (REST API 엔드포인트 노출)
    2. URI 엔드포인트와 HTTP 요청 메서드를 처리하는 메서드를 정의
+#### Routing 예시
+``` typescript
+@Controller('hello')// ✅Controller decorater 안에 문자열로 경로를 넣으면 prefix로 작동
+export class HelloController {
+   @Get() 
+   get(): string {
+      return 'get';
+   }
+   @Post()
+   create(): string {
+      return 'create';
+   }
+   @Put()
+   update(): string {
+      return 'update';
+   }
+   @Delete()
+   remove(): string {
+      return 'remove';
+   }
+}
+// ✅ 매개변수와 쿼리스트링 예시
+// HTTP GET /hello/kyy?country=korea
+   @Get(':name')
+   get(
+      @Param('name') name: string, // @Param: 매개변수
+      @Query('Country') country: string // @Query: 쿼리스트링
+) {
+      return `my name is ${name} from ${country}` // 'my name is kyy from korea'
+}
+// request객체를 전부 가져오고 싶다면 @Request
+```
 ### Service (app.service.ts)
-   1. Controller에서 사용할 비즈니스 로직을 구현
+   1. Controller에서 사용할 일반적인 비즈니스 로직을 구현(담당)
    2. 서비스는 컨트롤러와 같은 클래스이며, Injectable 데코레이터를 사용하여 주입
+   3. 데이터베이스의 데이터를 가져오거나 외부API 호출등의 데이터 처리
+> #### DI (Dependency Injection, 의존성 주입)이란?
+> 소프트웨어 엔지니어링 디자인 패턴 중 하나, 특정 클래스가 의존하고 있는 다른 클래스나 컴포넌트를 직접 만들지 않고, 외부에서 주입받아 사용하는 방식으로 모듈간의 결합도를 높이고 유연성과 재사용성을 높이고자 나온 패턴
+> Nest에서는 DI로 인해 Class는 의존성을 직접 관리할 필요가 없이 독립적으로 유지할수 있게되며 이로인해 단위테스트를 수월하게 진행할 수 있게 된다
+> #### DI 동작방식
+> 1. 클래스는 필요한 의존성을 명시적으로 정의 (대체로 생성자 매개변수로 이루어짐)
+> 2. DI 컨테이너 또는 loC(Inversion of Control)컨테이너는 이러한 의존성을 관리, 이 컨테이너는 필요한 의존성을 찾아서 인스턴스를 생성하고, 이를 요청한 클래스에 주입
+> 3. 클래스는 직접적으로 의존성을 생성하거나 관리할 필요없이 해당 의존성을 사용할 수 있게 된다
+>    ```
+>    // DI 예시
+>    // cats.controller.ts
+>    import { Controller, Get, Post, Body } from '@nestjs/common';
+>    import { CatsService } from './cats.service';
+>    import { Cat } from './interfaces/cat.interface';
+>    @Controller('Cats')
+>    export class CatsController {
+>      constructor(private catsService: CatsService) {} // CatsService의 인스턴스를 CatsController의 private 멤버로 주입
+>
+>      @Post()
+>      async create(@Body() cat: Cat) { // 요청 본문에 있는 고양이 데이터를 받아서 처리
+>        this.catsService.create(cat); // 주입받은 CatsService의 create 메소드를 호출하여 고양이 데이터를 저장
+>      }
+>    
+>     Get()
+>     async findAll(): Promise<Cat[]> {  // 모든 고양이 데이터를 찾아 반환합니다. 반환 타입은 Promise<Cat[]>
+>       return this.catsService.findAll();  // 주입받은 CatsService의 findAll 메소드를 호출하여 모든 고양이 데이터를 가져오기
+>     }
+>    }
+>   // ✅ module에 providers에 명시되지 않은 service는 의존성 주입이 되지않음❗
+>    ```
+```typescript
+@Injectable() // 다른곳에서 사용가능하도록 주입가능한 클래스로 변경하기위해 사용 (DI, dependency injection)
+export class AppService {
+   getHelloWorld(): string {
+      return 'Hello World!';
+   }
+}
+
+// controller
+@controller()
+export class AppController {
+  // AppService에서 @injectable된 class는 controller에 private형태로 주입되고,
+  // 이렇게 주입된 class는 AppController에서 인스턴스를 생성하는게 아니라
+  // Nest자체에서 AppService에 대한 인스턴스를 생성하여 AppController에 전달해서
+  // 전달받은 인스턴스를 AppController에서 사용할 수 있게 된다
+  constructor(private readonly ✅appService: AppService) { // 전달받은 인스턴스 사용
+
+  @Get()
+  getHello(): string {
+    return this.appService.getHelloWorld();
+  }
+}
+```
 ### Module (app.module.ts)
 NestJS에서 모듈은 여러 컴포넌트를 조합하여 좀 더 큰 작업을 수행할 수 있게 하는 단위이며 '@Module()' 데코레이터가 붙은 클래스를 의미, Nest가 전체 어플리케이션의 구조를 만들어나가는데 사용하기 위한 메타데이터를 제공
 > #### 컴포넌트?
