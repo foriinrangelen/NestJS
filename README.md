@@ -5,7 +5,7 @@
 2. 클래스, 메서드, 속성에 데코레이터 지원 ➡️ **생산성 향상**
 3. 의존성주입을 통해 모듈간 유연한 결합, 코드의 유연성, 테스트 용이 ➡️ **장애 방지**
 4. TypeScript 지원 ➡️ **안정성 증가**
-> #### 데코레이터?
+> #### 🤔 데코레이터?
 > 1. 데코레이터는 함수나 클래스 등의 코드 요소에 기능을 추가하거나 수정하는 데 사용되는 고차 함수(higher-order function)
 > 2. NestJS에서 데코레이터는 클래스, 메서드, 프로퍼티, 파라미터 등에 메타데이터를 추가하여 다양한 기능을 구현하는 데 사용
 > 3. 해당 코드의 동작을 선언적으로 수정하거나 확장
@@ -59,14 +59,14 @@ export class HelloController {
    1. Controller에서 사용할 일반적인 비즈니스 로직을 구현(담당)
    2. 서비스는 컨트롤러와 같은 클래스이며, Injectable 데코레이터를 사용하여 주입
    3. 데이터베이스의 데이터를 가져오거나 외부API 호출등의 데이터 처리
-> #### DI (Dependency Injection, 의존성 주입)이란?
+> #### 🤔 DI (Dependency Injection, 의존성 주입)이란?
 > 소프트웨어 엔지니어링 디자인 패턴 중 하나, 특정 클래스가 의존하고 있는 다른 클래스나 컴포넌트를 직접 만들지 않고, 외부에서 주입받아 사용하는 방식으로 모듈간의 결합도를 높이고 유연성과 재사용성을 높이고자 나온 패턴
 > Nest에서는 DI로 인해 Class는 의존성을 직접 관리할 필요가 없이 독립적으로 유지할수 있게되며 이로인해 단위테스트를 수월하게 진행할 수 있게 된다
 > #### DI 동작방식
 > 1. 클래스는 필요한 의존성을 명시적으로 정의 (대체로 생성자 매개변수로 이루어짐)
 > 2. DI 컨테이너 또는 loC(Inversion of Control)컨테이너는 이러한 의존성을 관리, 이 컨테이너는 필요한 의존성을 찾아서 인스턴스를 생성하고, 이를 요청한 클래스에 주입
 > 3. 클래스는 직접적으로 의존성을 생성하거나 관리할 필요없이 해당 의존성을 사용할 수 있게 된다
->    ```
+>    ```typescript
 >    // DI 예시
 >    // cats.controller.ts
 >    import { Controller, Get, Post, Body } from '@nestjs/common';
@@ -81,13 +81,14 @@ export class HelloController {
 >        this.catsService.create(cat); // 주입받은 CatsService의 create 메소드를 호출하여 고양이 데이터를 저장
 >      }
 >    
->     Get()
+>     @Get()
 >     async findAll(): Promise<Cat[]> {  // 모든 고양이 데이터를 찾아 반환합니다. 반환 타입은 Promise<Cat[]>
 >       return this.catsService.findAll();  // 주입받은 CatsService의 findAll 메소드를 호출하여 모든 고양이 데이터를 가져오기
 >     }
 >    }
->   // ✅ module에 providers에 명시되지 않은 service는 의존성 주입이 되지않음❗
+>      // ✅ module에 providers에 명시되지 않은 service는 의존성 주입이 되지않음❗
 >    ```
+#### Service예시
 ```typescript
 @Injectable() // 다른곳에서 사용가능하도록 주입가능한 클래스로 변경하기위해 사용 (DI, dependency injection)
 export class AppService {
@@ -113,9 +114,9 @@ export class AppController {
 ```
 ### 3. Module (app.module.ts)
 NestJS에서 모듈은 여러 컴포넌트를 조합하여 좀 더 큰 작업을 수행할 수 있게 하는 단위이며 '@Module()' 데코레이터가 붙은 클래스를 의미, Nest가 전체 어플리케이션의 구조를 만들어나가는데 사용하기 위한 메타데이터를 제공
-> #### 컴포넌트?
+> #### 🤔 컴포넌트?
 > 재사용 가능한 구성 요소
-> #### 메타데이터?
+> #### 🤔 메타데이터?
 > "데이터에 대한 데이터"이며, 다른 데이터를 설명하거나 이해하는 데 사용되는 정보
    1. NestJS에서는 모듈을 사용하여 애플리케이션을 구성
    2. 모듈은 특정 기능 또는 비즈니스 로직을 담당하는 컴포넌트의 집합
