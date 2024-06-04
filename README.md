@@ -81,10 +81,10 @@ export class HelloController {
 >        this.catsService.create(cat); // 주입받은 CatsService의 create 메소드를 호출하여 고양이 데이터를 저장
 >      }
 >    
->     @Get()
->     async findAll(): Promise<Cat[]> {  // 모든 고양이 데이터를 찾아 반환합니다. 반환 타입은 Promise<Cat[]>
+>      @Get()
+>      async findAll(): Promise<Cat[]> {  // 모든 고양이 데이터를 찾아 반환합니다. 반환 타입은 Promise<Cat[]>
 >       return this.catsService.findAll();  // 주입받은 CatsService의 findAll 메소드를 호출하여 모든 고양이 데이터를 가져오기
->     }
+>      }
 >    }
 >      // ✅ module에 providers에 명시되지 않은 service는 의존성 주입이 되지않음❗
 >    ```
@@ -110,6 +110,7 @@ export class AppController {
   getHello(): string {
     return this.appService.getHelloWorld();
   }
+}
 }
 ```
 ### 3. Module (app.module.ts)
