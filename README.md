@@ -171,3 +171,49 @@ export class UsersModule {}
 ### NestJS프로젝트 구조
 #### Main.ts?
 NestJS 애플리케이션의 진입점(HTTP 서버시작)이며 NestFactory 클래스를 사용하여 NestJS애플리케이션을 생성하고 생성된 애플리케이션에 필요한 미들웨어 및 모듈을 등록하여 사용, NestJS에서 사용하고자 하는 모듈이 있는경우 Main.ts의 AppModule에 등록되어야 사용가능하다
+
+### API 문서화(Swagger) 하기 `https://docs.nestjs.com/openapi/introduction`
+API설계, 구축, 문서화, 테스트 하는 과정을 돕는 프레임워크, 주로 API를 직관적인 문서화 할 수 있도록 하는데 활용
+1. YAML, JSON 형식의 API스펙을 작성, 작성된 스펙을 기반을 웹페이지 형태로 문서화
+2. NestJS에서는 @nestjs/swagger를 통해 설정, 데코레이터를 통해 API 스펙을 명세
+3. `yarn add @nestjs/swagger`
+```typescript
+@Get('./all')
+@ApiOperation({ summary: '유저 가져오기' })
+@ApiOkResponse({
+   type: User,
+   description: '전체 유저를 반환합니다',
+})
+@ApiNotFoundResponse({
+   description: '잘못된 요청입니다.',
+})
+async getAllUsers() {
+   return this.userService.getAllusers();
+}
+```
+#### main.ts
+```typescript
+
+import { NestFactory } from '@nestjs/core';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger'; // add
+import { AppModule } from './app.module';
+
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule);
+// 추가
+  const config = new DocumentBuilder()
+    .setTitle('Cats example')
+    .setDescription('The cats API description')
+    .setVersion('1.0')
+// 태그 기준으로 Controller와 mapping
+    .addTag('cats')
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+// api 경로수정
+  SwaggerModule.setup('api', app, document);
+//
+  await app.listen(3000);
+}
+bootstrap();
+```
+
