@@ -34,6 +34,6 @@ export class BoardController {
     remove(
         @Param('id') id: number,
     ) {
-        return this.boardService.delete(Number(id));;
+        return this.boardService.delete(Number(id));
     }
 }
