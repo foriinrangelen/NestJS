@@ -7,4 +7,5 @@ nest --help
 ### 명령어
 ```Bash
 nest g co board // board controller 생성
+nest g mo board // board module 생성
 ```
