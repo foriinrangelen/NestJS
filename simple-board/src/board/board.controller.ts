@@ -1,8 +1,11 @@
+import { ApiTags } from '@nestjs/swagger';
 import { BoardService } from './board.service';
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 
 // /board로 들어왔을 시
 @Controller('board')
+// Swagger Mapping위해 decoration 추가
+@ApiTags('Board')
 export class BoardController {
     // BoardService 인스턴스를 의존성주입을 받기위해 성성자 초기화
     constructor(private boardService: BoardService){}
