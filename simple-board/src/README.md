@@ -13,7 +13,7 @@ nest g s board // board service 생성
 ### REST Client 사용하기
 .http 파일생성 >
 ```text
-# 테이블 전체 가져오기
+### GET
 GET http://localhost:3000/board
 
 ### POST
