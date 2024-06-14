@@ -226,4 +226,29 @@ async function bootstrap() {
 }
 bootstrap();
 ```
-### DTO 알아보기
+### DTO ( Data Transfer Object ) 알아보기
+계층간 데이터 전송을 위해 사용되는 객체
+1. API요청에서 받아온 데이터를 타입에 맞게 바인딩 및 유효성 검사
+2. Service 계층과 Controller 계층 사이에 데이터를 전달
+3. Response 객체로 데이터를 클라이언트에 전달
+NestJS에서는 클래스로 선언되며 Typescript 와 class-validator를 사용하여 강력한 데이터 유효성 검사 가능
+```typescript
+export class CreaterUserDto {
+  @MinLength(5)
+  @MaxLength(20)
+  @IsNotEmpty()
+  username: string;
+
+  @MinLength(8)
+  @MaxLength(50)
+  @IsNotEmpty()
+  pw: string;
+
+  @IsNotEmpty()
+  name: string;
+
+  @IsOptional()
+  genter? string;
+
+}
+```
