@@ -170,7 +170,17 @@ export class UsersModule {}
 
 ### NestJS프로젝트 구조
 #### Main.ts?
-NestJS 애플리케이션의 진입점(HTTP 서버시작)이며 NestFactory 클래스를 사용하여 NestJS애플리케이션을 생성하고 생성된 애플리케이션에 필요한 미들웨어 및 모듈을 등록하여 사용, NestJS에서 사용하고자 하는 모듈이 있는경우 Main.ts의 AppModule에 등록되어야 사용가능하다
+NestJS 애플리케이션의 진입점(HTTP 서버시작)이며 NestFactory 클래스를 사용하여 NestJS애플리케이션을 생성하고 생성된 애플리케이션에 필요한 미들웨어 및 모듈을 등록하여 사용, NestJS에서 사용하고자 하는 모듈이 있는경우 Main.ts의 AppModule에 등록되어야 사용가능하다 ( main.ts 파일은 애플리케이션의 초기화와 설정을 담당)
+```typescript
+import { NestFactory } from '@nestjs/core';
+import { AppModule } from './app.module';
+
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule); // NestFactory.create(AppModule): Nest 애플리케이션 인스턴스를 생성 여기서 AppModule은 애플리케이션의 루트 모듈
+  await app.listen(3000); // app.listen(3000): 애플리케이션을 특정 포트(이 예제에서는 3000번 포트)에서 실행
+}
+bootstrap();
+```
 
 ### API 문서화(Swagger) 하기 `https://docs.nestjs.com/openapi/introduction`
 API설계, 구축, 문서화, 테스트 하는 과정을 돕는 프레임워크, 주로 API를 직관적인 문서화 할 수 있도록 하는데 활용
