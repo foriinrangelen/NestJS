@@ -16,7 +16,7 @@
 >    - @Module(): 모듈을 정의하는 데 사용
 >    - @Inject(): 의존성 주입을 수행하는 데 사용
 
-## NestJS의 기본구조 ( Controller, Service, Module )
+### NestJS의 기본구조 ( Controller, Service, Module )
 
 클라이언트 요청 ➡️ 컨트롤러가 요청을 받아 처리하기 위해 Service로 이동 ➡️ Service에서 처리후 다시 Controller로 이동 <br/>
 **(전부Module에 등록하여 사용)**
