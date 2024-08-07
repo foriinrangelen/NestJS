@@ -18,7 +18,7 @@
 
 ## NestJS의 기본구조 ( Controller, Service, Module )
 
-클라이언트 요청 ➡️ 컨트롤러가 요청을 받아 처리하기 위해 서비스로 이동 ➡️ 서비스에서 처리후 다시 Controller로 이동 <br/>
+클라이언트 요청 ➡️ 컨트롤러가 요청을 받아 처리하기 위해 Service로 이동 ➡️ Service에서 처리후 다시 Controller로 이동 <br/>
 **(전부Module에 등록하여 사용)**
 ### 1. Controller (app.controller.ts)
    1. NestJS에서는 HTTP 요청을 받고 응답을 반환하기위해 Controller 사용 (REST API 엔드포인트 노출)
