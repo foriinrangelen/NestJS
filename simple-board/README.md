@@ -1,16 +1,28 @@
 ### NestJS 프로젝트 시작하기
-1. ```
-   npm install --global yarn
-   ```
-2. ```
-   yarn global add @nestjs/cli
-   ```
-3. ``` 
-   nest new simple-board
-   ```
-4. ``` 
-   yarn start / yarn start:dev
-   ```
+#### 1. npm 으로 yarn 설치
+```
+npm install --global yarn
+```
+#### 2. yarn 으로 nestjs/cli 설치
+```
+yarn global add @nestjs/cli
+```
+#### 3. 새로운 NestJS프로젝트 생성
+``` 
+nest new simple-board
+```
+#### 4. 프로젝트 서버 시작
+``` 
+yarn start / yarn start:dev
+```
+### git clone 후 의존성 설치
+```
+> directory 이동 후 yarn install
+```
+#### 5. DTO 사용위해 class validater 와 class-transformer 설치
+``` 
+yarn add class-validator class-transformer
+```
 > #### nvm (node version manager)사용해보기
 > 노드버전 관리를 위해사용
 > ```
