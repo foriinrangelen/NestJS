@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { CreateBoardDto } from './dto/create-board.dto';
 
 @Injectable()
 export class BoardService {
@@ -56,7 +57,7 @@ export class BoardService {
         return this.boards.filter(post => post.id===id);
     }
     // 게시물 생성하기
-    create(data){
+    create(data: CreateBoardDto){
         const newBoard= {
             id: this.getNextId(),
             // id: this.boards.length+1,
@@ -91,7 +92,7 @@ export class BoardService {
     getNextId(){
         return this.boards.sort((a,b)=>b.id- a.id)[0].id+ 1;
     }
-    
+
     getBoardId(id: number) {
         return this.boards.findIndex(post => post.id==id);
     }

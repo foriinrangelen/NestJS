@@ -1,6 +1,7 @@
 import { ApiTags } from '@nestjs/swagger';
 import { BoardService } from './board.service';
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { CreateBoardDto } from './dto/create-board.dto';
 
 // /board로 들어왔을 시
 @Controller('board')
@@ -21,7 +22,8 @@ export class BoardController {
     }
     // 게시물 생성
     @Post()
-    create(@Body() data) {
+    // dto 생성후 create method의 data type을 dto로 지정해주기
+    create(@Body() data: CreateBoardDto) {
         return this.boardService.create(data);
     }
     // 게시물 업데이트
