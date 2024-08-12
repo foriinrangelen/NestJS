@@ -21,7 +21,7 @@ yarn start / yarn start:dev
 ```
 #### 5. DTO 사용위해 class validater 와 class-transformer 설치
 ``` 
-yarn add class-validater class-transformer
+yarn add class-validator class-transformer
 ```
 > #### nvm (node version manager)사용해보기
 > 노드버전 관리를 위해사용
