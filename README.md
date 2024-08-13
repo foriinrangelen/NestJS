@@ -278,15 +278,19 @@ import { Ip } from './board/decorators/ip.decorator';
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
-  // logger Module 사용하기 위해 instance 생성
-  ✅private readonly logger = new Logger();
+  // logger Module 사용
+  private readonly logger = new Logger();
 
   @Get()
   // custom decorator 사용해보기 
   getHello(@Ip() ip: string): string {
     console.log(ip)
-    // logger Module 사용하여 log 찍기
-    ✅this.logger.log(ip)
+    // logger Module 사용하여 다양한 log 찍어보기
+    this.logger.log(ip)
+    this.logger.debug(ip)
+    this.logger.error(ip)
+    this.logger.verbose(ip)
+    this.logger.warn(ip)
     // 인위적 Exception 발생시켜보기
     // throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
     return this.appService.getHello();
@@ -294,5 +298,7 @@ export class AppController {
 }
 
 ```
+![image](https://github.com/user-attachments/assets/4cdae074-d53d-42e6-8017-8675d932628c)
+
 
 
