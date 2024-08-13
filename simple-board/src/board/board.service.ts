@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { CreateBoardDto } from './dto/create-board.dto';
+import { UpdateBoardDto } from './dto/update-board.dto';
 
 @Injectable()
 export class BoardService {
@@ -67,7 +68,8 @@ export class BoardService {
         return newBoard;
     }
     // 게시물 수정하기
-    update(id: number, data: any){
+    // UpdateBoardDto 사용
+    update(id: number, data: UpdateBoardDto){
         const index= this.getBoardId(id)
 
         if(index!=-1){
@@ -75,6 +77,7 @@ export class BoardService {
                ...this.boards[index],// 기존데이터 가져와서
                ...data // 업데이트할 내용만 덮어쓰기
             }
+            console.log(this.boards)
             return this.boards[index];
         }
         return null;

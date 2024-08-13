@@ -2,6 +2,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { BoardService } from './board.service';
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, ValidationPipe } from '@nestjs/common';
 import { CreateBoardDto } from './dto/create-board.dto';
+import { UpdateBoardDto } from './dto/update-board.dto';
 
 // ✅NestJS에서 제공하는 내장 파이프
 // validationPipe, ParseIntPipe, ParseFloatPipe, ParseArrayPipe etc. --------------------------------
@@ -36,7 +37,8 @@ export class BoardController {
     @Put(':id')
     update(
         @Param('id', ParseIntPipe) id: number,
-        @Body() data
+        // class-validator 실행시키기
+        @Body(new ValidationPipe()) data: UpdateBoardDto
     ) {
         return this.boardService.update(id, data);
     } 

@@ -1,3 +1,4 @@
+import { ApiProperty } from "@nestjs/swagger";
 import { IsNotEmpty, MaxLength, MinLength } from "class-validator";
 
 // class-validator 과 class-transformer 설치
@@ -8,8 +9,19 @@ export class CreateBoardDto {
     @MinLength(2)
     @MaxLength(20)
     @IsNotEmpty()
+    // ApiProperty(): Swagger 작성하기위해 사용
+    @ApiProperty({
+        description:"글 제목",
+        required:true,
+        example:"title1"
+    })
     title: string;
 
     @IsNotEmpty()
+    @ApiProperty({
+        description:"글 내용",
+        required:true,
+        example:"안녕하세요"
+    })
     content: string;
 }
