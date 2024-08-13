@@ -234,6 +234,7 @@ bootstrap();
 NestJS에서는 클래스로 선언되며 Typescript 와 class-validator를 사용하여 강력한 데이터 유효성 검사 가능
 ```typescript
 export class CreaterUserDto {
+// ✅username은 5~20의 범위를 가져야하고 empty하지 않아야한다
   @MinLength(5)
   @MaxLength(20)
   @IsNotEmpty()
@@ -246,7 +247,7 @@ export class CreaterUserDto {
 
   @IsNotEmpty()
   name: string;
-
+// ✅gender는 Optional 해야한다(있어도 그만 없어도 그만)
   @IsOptional()
   genter? string;
 
