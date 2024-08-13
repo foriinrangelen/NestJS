@@ -278,8 +278,9 @@ import { Ip } from './board/decorators/ip.decorator';
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
-  // logger Module 사용
-  private readonly logger = new Logger();
+  // logger Module 사용, instance 생성시에 이 class가 선언된 클래스 안에 new Logger(AppController.name) 
+  // 처럼 클래스의 name을 명시하게되면 logger가 실행된 위치까지 같이 찍힌다
+  private readonly logger = new Logger(AppController.name);
 
   @Get()
   // custom decorator 사용해보기 
@@ -298,7 +299,7 @@ export class AppController {
 }
 
 ```
-![image](https://github.com/user-attachments/assets/4cdae074-d53d-42e6-8017-8675d932628c)
+![image](https://github.com/user-attachments/assets/2e6acd1a-a2c1-42d9-a633-4c59d5acb340)
 
 
 
