@@ -258,3 +258,13 @@ export class CreaterUserDto {
    - HTTP 요청을 처리할 때 입력된 데이터가 DTO에 명시된 형태와 일치하는 지 확인
 2. 데이터 변환
    - 입력된 데이터를 다른 형태로 변환 (ex 문자열로 제공된 날짜를 Date 객체로 변환)
+
+### Exception Filters
+파이프가 router handler 전 동작한다면 Exception Filter는 client 요청이후 pipe 단과 router handler 단에서 동작을 수행하다 예외가 발생하면 해당 예외를 처리하는 코드로 routing 해준다
+```typescript
+@Get()
+async findAll() {
+   throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
+}
+```
+
