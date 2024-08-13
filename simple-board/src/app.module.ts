@@ -1,7 +1,8 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { BoardModule } from './board/board.module';
+import { LoggingMiddleware } from './board/middlewares/logging.middleware';
 
 @Module({
   // nest g mo board 로 생성하면 자동으로 모듈이 메인 모듈에 import 된다
@@ -13,4 +14,18 @@ import { BoardModule } from './board/board.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+
+
+// 만든 middleware를 전역적으로 사용하기 위해 AppModule에 등록해줘야하며
+// 등록하기 위해서는 NestModule을 구현 해야한다
+export class AppModule implements NestModule{
+  // 이 configure() method를 필수적으로 구현해줘야 한다
+  configure(consumer: MiddlewareConsumer) {
+    // .forRoutes('*'); : 어디에 적용할지 *은 전체 라우터, 특정경로라면 특정경로에만 등록
+    // ex ) consumer.apply(LoggingMiddleware).forRoutes('board');
+    // 여러개의 middleware를 등록하고싶다면 apply()에 추가
+    consumer.apply(LoggingMiddleware).forRoutes('*');
+    consumer.apply(LoggingMiddleware).forRoutes('board'); // 와 같이 consumer.apply()를 여러번 사용하여 여러 상황에 middleware를 등록할 수 있음
+    
+  }
+}
