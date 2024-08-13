@@ -269,7 +269,7 @@ async findAll() {
 }
 ```
 ### LoggerModule 사용해보기
-LoggerModule은 injectable한 class가 아니기 때문에 그대로 가져와서 사용해야한다
+LoggerModule은 injectable한 class가 아니기 때문에 그대로 가져와서 사용해야한다, 즉 Logger는 LoggerService를 implements 하고있고, 실체화된 클래스조차 타입만 declare 되어있기때문에 직접 instance를 만들어서 사용해야함
 ```typescript
 import { Controller, Get, HttpException, HttpStatus, Logger } from '@nestjs/common';
 import { AppService } from './app.service';
