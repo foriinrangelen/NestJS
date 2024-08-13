@@ -268,5 +268,31 @@ async findAll() {
    throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
 }
 ```
+### LoggerModule 사용해보기
+LoggerModule은 injectable한 class가 아니기 때문에 그대로 가져와서 사용해야한다
+```
+import { Controller, Get, HttpException, HttpStatus, Logger } from '@nestjs/common';
+import { AppService } from './app.service';
+import { Ip } from './board/decorators/ip.decorator';
+
+@Controller()
+export class AppController {
+  constructor(private readonly appService: AppService) {}
+  // logger Module 사용
+  ✅private readonly logger = new Logger();
+
+  @Get()
+  // custom decorator 사용해보기 
+  getHello(@Ip() ip: string): string {
+    console.log(ip)
+    // logger Module 사용하여 log 찍기
+    ✅this.logger.log(ip)
+    // 인위적 Exception 발생시켜보기
+    // throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
+    return this.appService.getHello();
+  }
+}
+
+```
 
 
