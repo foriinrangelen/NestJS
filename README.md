@@ -270,7 +270,7 @@ async findAll() {
 ```
 ### LoggerModule 사용해보기
 LoggerModule은 injectable한 class가 아니기 때문에 그대로 가져와서 사용해야한다
-```
+```typescript
 import { Controller, Get, HttpException, HttpStatus, Logger } from '@nestjs/common';
 import { AppService } from './app.service';
 import { Ip } from './board/decorators/ip.decorator';
