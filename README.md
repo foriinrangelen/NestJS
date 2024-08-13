@@ -302,7 +302,7 @@ export class AppController {
 ![image](https://github.com/user-attachments/assets/2e6acd1a-a2c1-42d9-a633-4c59d5acb340)
 ### 일반적 요청, 응답에 대한 Logger 생성하기
 NestJS에서는 에러에 대한 Logger는 제공하지만 일반적인 요청과 응답에 대한 Logging처리는 제공하지 않기때문에 따로 MiddleWare를 만들고, 등록해서 사용해야한다
-#### API호출시 소요되는 시간 및 기본 정보를 출력하는 기능 구현해보기
+#### API호출시 소요되는 시간 및 기본 정보를 출력하는 Middleware 구현해보기
 src/board/middlewares 폴더 생성
 ```typescript
 // logging.middleware.ts
