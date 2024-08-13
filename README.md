@@ -300,6 +300,64 @@ export class AppController {
 
 ```
 ![image](https://github.com/user-attachments/assets/2e6acd1a-a2c1-42d9-a633-4c59d5acb340)
+### 일반적 요청, 응답에 대한 Logger 생성하기
+NestJS에서는 에러에 대한 Logger는 제공하지만 일반적인 요청과 응답에 대한 Logging처리는 제공하지 않기때문에 따로 MiddleWare를 만들고, 등록해서 사용해야한다
+#### API호출시 소요되는 시간 및 기본 정보를 출력하는 기능 구현해보기
+src/board/middlewares 폴더 생성
+```typescript
+// logging.middleware.ts
+import { Logger, NestMiddleware } from "@nestjs/common";
+import { Request, Response, NextFunction } from "express";
+
+// NestJS에서는 Middleware를 만들기위해 NestMiddleware를 implements 해서 구현해야한다
+export class LoggingMiddleware implements NestMiddleware {
+
+    private readonly logger = new Logger();
+    // ✅이 use method를 구현해야한다✅
+    use(request: Request, response: Response, next: NextFunction) {
+
+        const {method, originalUrl}= request;
+        const startTime = Date.now();
+
+        response.on('finish', () => {
+            // console.log(response.statusMessage)
+            const { statusCode }= response;
+            const endTime = Date.now();
+            const responseTime = endTime - startTime;
+            this.logger.log(`${method} ${originalUrl} - ${statusCode} ${response.statusMessage} - ${responseTime}ms`);
+        });
+
+        next();
+    }
+}
+// app.mpdule.ts
+✅import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { BoardModule } from './board/board.module';
+✅import { LoggingMiddleware } from './board/middlewares/logging.middleware';
+
+@Module({
+  imports: [BoardModule],
+  controllers: [AppController],
+  providers: [AppService],
+})
+
+
+// ✅만든 middleware를 전역적으로 사용하기 위해 AppModule에 등록해줘야하며 등록하기 위해서는 NestModule을 구현 해야한다
+export class AppModule implements NestModule{
+  // 이 configure() method를 필수적으로 구현해줘야 한다
+  configure(consumer: MiddlewareConsumer) {
+    // .forRoutes('*'); : 어디에 적용할지 *은 전체 라우터, 특정경로라면 특정경로에만 등록
+    // ex ) consumer.apply(LoggingMiddleware).forRoutes('board');
+    // 여러개의 middleware를 등록하고싶다면 apply()에 추가
+    consumer.apply(LoggingMiddleware).forRoutes('*');
+    consumer.apply(LoggingMiddleware).forRoutes('board'); // 와 같이 consumer.apply()를 여러번 사용하여 여러 상황에 middleware를 등록할 수 있음
+    
+  }
+}
+
+```
 
 
 
