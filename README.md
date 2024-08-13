@@ -278,7 +278,7 @@ import { Ip } from './board/decorators/ip.decorator';
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
-  // logger Module 사용
+  // logger Module 사용하기 위해 instance 생성
   ✅private readonly logger = new Logger();
 
   @Get()
