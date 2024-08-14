@@ -19,7 +19,7 @@ yarn start / yarn start:dev
 ```
 > directory 이동 후 yarn install
 ```
-#### 5. DTO 사용위해 class validater 와 class-transformer 설치
+#### 5. DTO 사용위해 class validator 와 class-transformer 설치
 ``` 
 yarn add class-validator class-transformer
 ```
