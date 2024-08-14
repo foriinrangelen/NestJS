@@ -402,6 +402,7 @@ console.log(this.configService.get<string>('ENVIRONMENT'),"1"); // ✅ 사용해
 ```
 ### Postgres 및 TypeORM 연동하기
 ```typescript
+// app.module.ts
 @Module({
   imports: [
     ConfigModule(),
