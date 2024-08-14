@@ -386,10 +386,9 @@ export default () => ({
 import  ConfigModule  from './config'; // ✅ import
 
 @Module({
-  // ✅환경설정 위한 ConfigModule import
+  // 환경설정 위한 ConfigModule import
   imports: [
-    // 다이나믹 모듈이기때문에 호출까지,
-    ConfigModule(),
+    ConfigModule(), // ✅ 다이나믹 모듈이기때문에 호출까지
     BoardModule
   ],
   controllers: [AppController],
