@@ -15,13 +15,17 @@ nest new simple-board
 ``` 
 yarn start / yarn start:dev
 ```
-### git clone 후 의존성 설치
+#### git clone 후 의존성 설치
 ```
 > directory 이동 후 yarn install
 ```
 #### 5. DTO 사용위해 class validater 와 class-transformer 설치
 ``` 
 yarn add class-validator class-transformer
+```
+#### 6. NestJS에서 환경설정 위해 ConfigModule 설치하기
+``` 
+yarn add @nestjs/config
 ```
 > #### nvm (node version manager)사용해보기
 > 노드버전 관리를 위해사용
