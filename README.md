@@ -381,6 +381,7 @@ export default ({}={})=> ConfigModule.forRoot({
 export default () => ({
     ENVIRONMENT: process.env.ENVIRONMENT,
 })
+
 // app.module.ts
 import  ConfigModule  from './config'; // ✅ import
 
