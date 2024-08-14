@@ -3,10 +3,27 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { BoardModule } from './board/board.module';
 import { LoggingMiddleware } from './board/middlewares/logging.middleware';
+import  ConfigModule  from './config';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   // nest g mo board 로 생성하면 자동으로 모듈이 메인 모듈에 import 된다
-  imports: [BoardModule],
+  // 환경설정 위한 ConfigModule.forRoot() import
+  imports: [
+    // 다이나믹 모듈이기때문에 호출까지,
+    ConfigModule(),
+    TypeOrmModule.forRoot({
+      type:'postgres',
+      host:'localhost',
+      port:5432,
+      username:'kyy',
+      password:'kyy',
+      database:'postgres',
+      entities:[__dirname + '/**/*.entity.{.ts,.js}'], // 모델을 가지고 있는 엔터티들의 위치
+      synchronize: false // 엔터티가 테이블의 정의를 가지고있는데 엔터티가 변할때 이 변환값을 실제 DB에 반영할건지,(false 추천)
+    }),
+    BoardModule
+  ],
   // nest g co board 로 Controller로 생성하면 자동으로 model 안에 Controllers 배열안에 추가
   // 만약 module이 만들어져 있었더라면 imports 배열안에 BoardModule이 추가가되고 Controllers배열안에는 추가 X
   // 그래서 항상 controller를 먼저 생성할 것인지 module을 먼저 생성할 것인지 생각하기

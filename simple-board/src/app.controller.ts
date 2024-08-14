@@ -1,10 +1,15 @@
+import { ConfigService } from '@nestjs/config';
 import { Controller, Get, HttpException, HttpStatus, Logger } from '@nestjs/common';
 import { AppService } from './app.service';
 import { Ip } from './board/decorators/ip.decorator';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(
+    private readonly appService: AppService,
+    // 와 같이 의존성주입을 받아 환경설정 파일을 불러올 수 있음
+    private readonly configService: ConfigService, 
+  ) {}
   // logger Module 사용, instance 생성시에 이 class가 선언된 클래스 안에 new Logger(AppController.name) 
   // 처럼 클래스의 name을 명시하게되면 logger가 실행된 위치까지 같이 찍힌다
   private readonly logger = new Logger(AppController.name);
@@ -12,6 +17,10 @@ export class AppController {
   @Get()
   // custom decorator 사용해보기 
   getHello(@Ip() ip: string): string {
+    // 환경변수 불러와보기
+    console.log(this.configService.get<string>('ENVIRONMENT'),"1");
+
+
     // console.log(ip)
     // logger Module 사용하여 다양한 log 찍어보기
     // this.logger.log(ip)
