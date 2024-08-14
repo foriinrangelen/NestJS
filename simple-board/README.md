@@ -27,6 +27,10 @@ yarn add class-validator class-transformer
 ``` 
 yarn add @nestjs/config
 ```
+#### 7. NestJS에서 TypeORM과 Postgres 연동위해 @nestjs/typeorm, typeorm, pg 설치
+``` 
+yarn add @nestjs/typeorm typeorm pg
+```
 > #### nvm (node version manager)사용해보기
 > 노드버전 관리를 위해사용
 > ```
