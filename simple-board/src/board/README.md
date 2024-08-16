@@ -55,7 +55,7 @@ export default new DataSource({
     "migration:generate": "yarn typeorm migration:generate ./src/database/migrations/Migration",
     "migration:run": "yarn typeorm  migration:run",
     "migration:revert": "yarn typeorm migration:revert",
-    "seed": "ts-node -r tsconfig-paths/register ./node_modules/typeorm-extension/dist/cli/index.js seed",
+    "seed": "ts-node -r tsconfig-paths/register ./node_modules/typeorm-extension/bin/cli.cjs seed:run",
 ```
 1. "migration:run 실제로 create & generate한 내용을 실제로 수행
 2. revert는 마지막으로 수행한 migration 기준으로 다시 원복하는 기능 수행
