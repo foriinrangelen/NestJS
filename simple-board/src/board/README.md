@@ -63,4 +63,48 @@ export default new DataSource({
 둘다 migration 파일을 생성하지만 create는 빈 migration을 생성, generate는 db와 엔터티 간의 변경점을 파악하여 변경된 사항에 대한 변경점을 반영, 하지만 generate는 몇몇 case에서 수정사항을 반영할때 컬럼을 drop 하는 issue가 있어 조심해서 사용
 
 ### TypeORM Seeding을 통한 초기 데이터 생성하기
+1. `yarn add typeorm-extension`
+database 폴더에 seeder 폴더추가 user.seeder.ts 파일생성
+seeder파일은 기본적으로 typeorm의 extension의 seeder를 implement하여 구현
+```typescript
+// 'src/entity/user.entity'에서 User 엔티티를 가져옵니다.
+// User 엔티티는 데이터베이스에서 사용자 정보를 정의합니다.
+import { User } from 'src/entity/user.entity';
 
+// TypeORM의 DataSource 클래스를 가져옵니다.
+// DataSource는 데이터베이스 연결 정보를 포함합니다.
+import { DataSource } from 'typeorm';
+
+// TypeORM Extension에서 Seeder 및 SeederFactoryManager를 가져옵니다.
+// Seeder는 데이터베이스에 데이터를 삽입하는 로직을 정의하는 인터페이스입니다.
+import { Seeder, SeederFactoryManager } from 'typeorm-extension';
+
+// UserSeeder 클래스를 정의합니다. 이 클래스는 Seeder 인터페이스를 구현합니다.
+export default class UserSeeder implements Seeder {
+    // run 메서드를 정의합니다. 이 메서드는 시더가 실행될 때 호출됩니다.
+    // dataSource: 데이터베이스 연결 정보를 포함하는 객체입니다.
+    // factoryManager: 시더 팩토리 매니저로, 시더 생성에 필요한 기능을 제공합니다.
+    async run(dataSource: DataSource, factoryManager: SeederFactoryManager): Promise<any> {
+        
+        // dataSource를 사용하여 User 엔티티에 대한 레포지토리를 가져옵니다.
+        const repository = dataSource.getRepository(User);
+
+        // 레포지토리를 사용하여 사용자 데이터를 데이터베이스에 삽입합니다.
+        // await를 사용하여 비동기 작업이 완료될 때까지 기다립니다.
+        await repository.insert([{
+            // usernid 속성에 'fastcampus' 값을 할당합니다.
+            // 이 값은 사용자의 고유 식별자 역할을 할 수 있습니다.
+            usernid: 'fastcampus',
+            
+            // name 속성에 'kyy123' 값을 할당합니다.
+            // 사용자의 이름을 나타냅니다.
+            name: 'kyy123',
+            
+            // password 속성에 '1234' 값을 할당합니다.
+            // 사용자의 비밀번호를 나타냅니다.
+            password: '1234',
+        },])
+    }
+}
+
+```
