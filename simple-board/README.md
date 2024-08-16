@@ -31,6 +31,10 @@ yarn add @nestjs/config
 ``` 
 yarn add @nestjs/typeorm typeorm pg
 ```
+#### 8. TypeORM Migrations 사용하기위해 ts-node, tsconfig, dotenv설치
+``` 
+yarn add ts-node, tsconfig-paths dotenv
+```
 > #### nvm (node version manager)사용해보기
 > 노드버전 관리를 위해사용
 > ```
