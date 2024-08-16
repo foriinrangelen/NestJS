@@ -8,4 +8,4 @@ export default ({}={})=> ConfigModule.forRoot({
     // envFilePath: `.env.${process.env.NODE_ENV}`, //.env.development
     envFilePath: `.env.local`, 
     load: [configuration], // configuration.ts를 import
-});
+})

@@ -6,6 +6,7 @@ import { LoggingMiddleware } from './board/middlewares/logging.middleware';
 import  ConfigModule  from './config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
+
 @Module({
   // nest g mo board 로 생성하면 자동으로 모듈이 메인 모듈에 import 된다
   // 환경설정 위한 ConfigModule.forRoot() import
@@ -14,11 +15,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     ConfigModule(),
     TypeOrmModule.forRoot({
       type:'postgres',
-      host:'localhost',
-      port:5432,
-      username:'kyy',
-      password:'kyy',
-      database:'postgres',
+      host: process.env.DB_HOST,
+      port: parseInt(process.env.DB_PORT),
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME,
       entities:[__dirname + '/**/*.entity.{.ts,.js}'], // 모델을 가지고 있는 엔터티들의 위치
       synchronize: false // 엔터티가 테이블의 정의를 가지고있는데 엔터티가 변할때 이 변환값을 실제 DB에 반영할건지,(false 추천)
     }),

@@ -20,7 +20,6 @@ export class AppController {
     // 환경변수 불러와보기
     console.log(this.configService.get<string>('ENVIRONMENT'),"1");
 
-
     // console.log(ip)
     // logger Module 사용하여 다양한 log 찍어보기
     // this.logger.log(ip)
