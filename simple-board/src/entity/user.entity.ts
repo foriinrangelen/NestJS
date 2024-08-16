@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Board } from "./board.entitiy";
+import { Board } from "./board.entity";
 
 // @Entity(): 이 클래스가 데이터베이스의 테이블에 해당함을 나타내며 클래스명은 기본적으로 테이블명으로 사용
 @Entity()
@@ -10,7 +10,7 @@ export class User {
 
     @ApiProperty( {description:"유저 아이디",example:"admin"} )
     @Column({ unique: true  }) // @Column({ unique: true }): 이 필드가 데이터베이스에서 유일한 값이어야 함
-    usernid: string;
+    userId: string;
 
     @ApiProperty ( {description:"유저 비밀번호",} )
     @Column({ select:false}) // @Column({ select: false }): 이 필드는 쿼리에서 기본적으로 선택되지 않도록 설정, 비밀번호와 같은 민감한 정보를 숨기기 위해 사용

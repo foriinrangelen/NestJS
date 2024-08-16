@@ -7,9 +7,9 @@ export class UpdateBoardDto {
     @MinLength(2)
     @MaxLength(20)
     @IsOptional()
-    title?: string;
+    userId?: string;
     @IsOptional()
-    content?: string;
+    contents?: string;
 }
 
 // export class UpdateBoardDto extends PartialType(CreateBoardDto) {}

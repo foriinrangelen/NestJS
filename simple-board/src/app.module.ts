@@ -2,7 +2,7 @@ import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { BoardModule } from './board/board.module';
-import { LoggingMiddleware } from './board/middlewares/logging.middleware';
+import { LoggingMiddleware } from './middlewares/logging.middleware';
 import  ConfigModule  from './config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
@@ -20,8 +20,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      entities:[__dirname + '/**/*.entity.{.ts,.js}'], // 모델을 가지고 있는 엔터티들의 위치
-      synchronize: false // 엔터티가 테이블의 정의를 가지고있는데 엔터티가 변할때 이 변환값을 실제 DB에 반영할건지,(false 추천)
+      entities:[__dirname + '/**/*.entity.{ts,js}'], // 모델을 가지고 있는 엔터티들의 위치
+      synchronize: false, // 엔터티가 테이블의 정의를 가지고있는데 엔터티가 변할때 이 변환값을 실제 DB에 반영할건지,(false 추천)
+      logging: true, // 데이터베이스 query를 확인가능
     }),
     BoardModule
   ],
@@ -36,7 +37,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 // 만든 middleware를 전역적으로 사용하기 위해 AppModule에 등록해줘야하며
 // 등록하기 위해서는 NestModule을 구현 해야한다
-export class AppModule implements NestModule{
+export class AppModule implements NestModule{ 
   // 이 configure() method를 필수적으로 구현해줘야 한다
   configure(consumer: MiddlewareConsumer) {
     // .forRoutes('*'); : 어디에 적용할지 *은 전체 라우터, 특정경로라면 특정경로에만 등록

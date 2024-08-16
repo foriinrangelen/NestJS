@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { User } from "./user.entitiy";
+import { User } from "./user.entity";
 
 
 @Entity() // @Entity({name: ''}) 처럼 Entity안에 name을 따로 명시해주지않으면 class명이 table명과 mapping 된다
@@ -18,7 +18,7 @@ export class Board {
 
     @ApiProperty ({description:"글 내용",} )
     @Column()
-    content: string;
+    contents: string;
     
     @ApiProperty( {description:"글 수정일",} )
     @UpdateDateColumn()

@@ -1,7 +1,7 @@
 import { ConfigService } from '@nestjs/config';
 import { Controller, Get, HttpException, HttpStatus, Logger } from '@nestjs/common';
 import { AppService } from './app.service';
-import { Ip } from './board/decorators/ip.decorator';
+import { Ip } from './decorators/ip.decorator';
 
 @Controller()
 export class AppController {
