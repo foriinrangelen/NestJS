@@ -62,3 +62,5 @@ export default new DataSource({
 #### migration:create vs migration:generate 차이
 둘다 migration 파일을 생성하지만 create는 빈 migration을 생성, generate는 db와 엔터티 간의 변경점을 파악하여 변경된 사항에 대한 변경점을 반영, 하지만 generate는 몇몇 case에서 수정사항을 반영할때 컬럼을 drop 하는 issue가 있어 조심해서 사용
 
+### TypeORM Seeding을 통한 초기 데이터 생성하기
+
