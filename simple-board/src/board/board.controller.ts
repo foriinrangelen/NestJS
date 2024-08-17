@@ -40,20 +40,21 @@ export class BoardController {
     }
 
 
-    // // 게시물 업데이트
-    // @Put(':id')
-    // update(
-    //     @Param('id', ParseIntPipe) id: number,
-    //     // class-validator 실행시키기
-    //     @Body(new ValidationPipe()) data: UpdateBoardDto
-    // ) {
-    //     return this.boardService.update(id, data);
-    // } 
-
-    // @Delete(':id')
-    // remove(
-    //     @Param('id', ParseIntPipe) id: number,
-    // ) {
-    //     return this.boardService.delete(id);
-    // }
+    // 게시물 업데이트
+    @Put(':id')
+    update(
+        @Param('id', ParseIntPipe) id: number,
+        // class-validator 실행시키기
+        @Body(new ValidationPipe()) data: UpdateBoardDto
+    ) {
+        return this.boardService.update(id, data);
+    } 
+    
+    // 게시물 삭제
+    @Delete(':id')
+    remove(
+        @Param('id', ParseIntPipe) id: number,
+    ) {
+        return this.boardService.delete(id);
+    }
 }

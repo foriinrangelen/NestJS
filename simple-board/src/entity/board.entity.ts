@@ -12,9 +12,9 @@ export class Board {
     @Column() // 만약 연결한 DB의 column명이 다르다면 @Column({name: ''}) 처럼 decorator안에 넣어줘서 맞출 수 있다
     userId: string;
 
-    @ApiProperty ({description:"글 제목",} )
-    @Column()
-    title: string;
+    // @ApiProperty ({description:"글 제목",} )
+    // @Column()
+    // title: string;
 
     @ApiProperty ({description:"글 내용",} )
     @Column()

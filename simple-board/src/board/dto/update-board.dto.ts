@@ -1,15 +1,25 @@
-import { IsOptional, MaxLength, MinLength } from "class-validator";
+import { IsNotEmpty, IsOptional, MaxLength, MinLength } from "class-validator";
 import { CreateBoardDto } from "./create-board.dto";
+import { ApiProperty } from "@nestjs/swagger";
 
 export class UpdateBoardDto {
     // 어느것을 수정할지 모르니 optional로 설정
     // class-validator 같은경우 필수조건이라기보다 타입을 명확하게 하기위한 조건이기때문에 번거롭다면 빼도된다
-    @MinLength(2)
-    @MaxLength(20)
-    @IsOptional()
-    userId?: string;
-    @IsOptional()
-    contents?: string;
+    // 작성자를 수정할 순 없으니 제거
+    // @MinLength(2)
+    // @MaxLength(20)
+    // @IsOptional()
+    // userId?: string;
+
+
+    // @IsOptional()
+    @IsNotEmpty() // 무조건 수정이 되야 하기 때문에
+    @ApiProperty({
+        description:"내용",
+        required:true,
+        example:"글 내용 수정"
+    })
+    contents: string;
 }
 
 // export class UpdateBoardDto extends PartialType(CreateBoardDto) {}
