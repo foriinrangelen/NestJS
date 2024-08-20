@@ -5,6 +5,7 @@ import { BoardModule } from './board/board.module';
 import { LoggingMiddleware } from './middlewares/logging.middleware';
 import  ConfigModule  from './config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { UserModule } from './user/user.module';
 
 
 @Module({
@@ -24,7 +25,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       synchronize: false, // 엔터티가 테이블의 정의를 가지고있는데 엔터티가 변할때 이 변환값을 실제 DB에 반영할건지,(false 추천)
       logging: true, // 데이터베이스 query를 확인가능
     }),
-    BoardModule
+    BoardModule,
+    UserModule
   ],
   // nest g co board 로 Controller로 생성하면 자동으로 model 안에 Controllers 배열안에 추가
   // 만약 module이 만들어져 있었더라면 imports 배열안에 BoardModule이 추가가되고 Controllers배열안에는 추가 X

@@ -56,7 +56,7 @@ export class BoardService
         // return board
         //save() 사용
         const board= await this.boardRepository.save(data)
-        return 
+        return "게시물 생성"
     }
     
     // // 게시물 수정하기: update()

@@ -6,21 +6,20 @@ POST http://localhost:3000/board
 content-type: application/json
 
 {
-    "title":"title11",
-    "content":"contents11"
+    "userId":"7",
+    "contents":"변경123"
 }
 
 ### PUT
-PUT http://localhost:3000/board/9
+PUT http://localhost:3000/board/2
 content-type: application/json
 
 {
-    "title":"변경ㅇㅇㅇ000000",
-    "content":"변경ㅇㅇㅇㅇㅇㅇㅇ"
+    "contents":"12342"
 }
 
 ### DELETE
-DELETE http://localhost:3000/board/1
+DELETE http://localhost:3000/board/2
 
 ### GET
 GET http://localhost:3000/
