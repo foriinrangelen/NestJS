@@ -37,4 +37,9 @@ export class User {
     @OneToMany(() => Board, (board) => board.user)
     boards: Board[]; // 이 boards는 실제 DB table의 column명이 아니고 값을 Boards라는 필들안에 받아오기 위한 가상의 column배열
                      // 이 안의 속성은 이제 board entity의 속성을 가지고 있다
+    
+    // 실제 DB에 존재하지않는 가상의 컬럼이며 쿼리빌더의 서브쿼리로 인한 특정 값을 만들어 가져오기 위해선언
+    // 실제로 아무것도 담기지 않을수도 않기때문에 optional로 선언 및 제약오픈
+    @Column({select: false, nullable: true, insert: false, update: false})
+    boardCount?: number
 }

@@ -1,11 +1,17 @@
+import { createUserDto } from './dto/create-user-dto';
 import { UserService } from './user.service';
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get, Post, ValidationPipe } from '@nestjs/common';
 
 @Controller('user')
 export class UserController {
     constructor(private readonly userService:UserService){}
-    signUp(){
 
+    // 회원가입 controller
+    @Post()
+    signUp(@Body(new ValidationPipe()) data: createUserDto){
+
+
+        return this.userService.createUser(data);
     }
 
     login(){
@@ -18,7 +24,7 @@ export class UserController {
 
     @Get()
     getUsers(){
-        return this.userService.getuser();
+        return this.userService.getUser();
     }
 
 }
