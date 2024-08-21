@@ -15,7 +15,7 @@ export class UserService {
 
     // 전체 유저 가져오는 method
     async getUser2() {
-        console.log("getuser")
+        // console.log("getuser")
         return this.userRepository.find()
     }
     
