@@ -13,7 +13,9 @@ export class User {
     userId: string;
 
     @ApiProperty ( {description:"유저 비밀번호",} )
-    @Column({ select:false}) // @Column({ select: false }): 이 필드는 쿼리에서 기본적으로 선택되지 않도록 설정, 비밀번호와 같은 민감한 정보를 숨기기 위해 사용
+    // 비밀번호 compare 위해 제거 (24 08/21)
+    // @Column({ select:false}) // @Column({ select: false }): 이 필드는 쿼리에서 기본적으로 선택되지 않도록 설정, 비밀번호와 같은 민감한 정보를 숨기기 위해 사용
+    @Column()
     password: string;
 
     @ApiProperty ( {description:"유저 이름",} )

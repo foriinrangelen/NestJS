@@ -1,4 +1,5 @@
-import { createUserDto } from './dto/create-user-dto';
+import { CreateUserDto } from './dto/create-user-dto';
+import { LoginUserDto } from './dto/login-user-dto';
 import { UserService } from './user.service';
 import { Body, Controller, Get, Post, ValidationPipe } from '@nestjs/common';
 
@@ -8,14 +9,17 @@ export class UserController {
 
     // 회원가입 controller
     @Post()
-    signUp(@Body(new ValidationPipe()) data: createUserDto){
+    signUp(@Body(new ValidationPipe()) data: CreateUserDto){
 
 
         return this.userService.createUser(data);
     }
 
-    login(){
+    // 로그인 controller
+    @Post('login')
+    login(@Body(new ValidationPipe()) data: LoginUserDto){
 
+        return this.userService.login(data);
     }
 
     me(){

@@ -1,9 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Board } from 'src/entity/board.entity';
 import { User } from 'src/entity/user.entity';
 import { Repository } from 'typeorm';
-import { createUserDto } from './dto/create-user-dto';
+import { CreateUserDto } from './dto/create-user-dto';
+import { hash, compare } from 'bcrypt';
+import { LoginUserDto } from './dto/login-user-dto';
 
 @Injectable()
 export class UserService {
@@ -49,8 +51,45 @@ export class UserService {
     }
 
     // 회원가입 메서드
-    async createUser(data: createUserDto) {
+    async createUser(data: CreateUserDto) {
         console.log(data)
-        return this.userRepository.save(data);
+        const {userId, password, name}= data;
+
+        // bcrypt module 사용해서 hash화 하기
+        // hash() 함수는 promise를 반환하고 첫번째 매개변수로 입력받은 password, 두번째 매개변수로 salt를받는다
+        const encryptedPassword= await this.encryptPassword(password)
+
+        // hash화한 비밀번호로 변경해서 userRepository로 DB에 저장하기
+        return this.userRepository.save({
+            userId,
+            name,
+            password: encryptedPassword,
+        });
+    }
+
+    // 비밀번호 hash화 하는 method
+    async encryptPassword(password: string){
+        const DEFAULT_SALT= 11;
+        return hash(password, DEFAULT_SALT);
+    }
+
+    // 로그인 메서드
+    async login(data: LoginUserDto){
+        const {userId, password}= data;
+
+  
+            // 아이디 있는지 확인
+            const user= await this.userRepository.findOneBy({
+                userId,
+            });
+            // 아이디가 없다면 404
+            if(!user) throw new HttpException('NOT_FOUND',HttpStatus.NOT_FOUND );
+            // 아이디가 있다면 비밀번호 확인 (bcrypt 모듈의 compare)
+            const match= await compare(password, user.password)
+            if(!match) throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED );
+            console.log("로그인성공")
+            return user;
+
+
     }
 }
