@@ -35,6 +35,10 @@ yarn add @nestjs/typeorm typeorm pg
 ``` 
 yarn add ts-node, tsconfig-paths dotenv
 ```
+#### 9. 비밀번호 hash화 위해 bcrypt설치 (서버단에서는 bcrypt 쓰자)
+``` 
+yarn add bcrypt
+```
 > #### nvm (node version manager)사용해보기
 > 노드버전 관리를 위해사용
 > ```
