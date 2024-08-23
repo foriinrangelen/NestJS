@@ -39,6 +39,10 @@ yarn add ts-node, tsconfig-paths dotenv
 ``` 
 yarn add bcrypt
 ```
+#### 10. jwt 사용위해 jsonwebtoken 설치
+``` 
+yarn add jsonwebtoken
+```
 > #### nvm (node version manager)사용해보기
 > 노드버전 관리를 위해사용
 > ```
