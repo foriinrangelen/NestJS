@@ -1,7 +1,8 @@
 import { ConfigService } from '@nestjs/config';
-import { Controller, Get, HttpException, HttpStatus, Logger } from '@nestjs/common';
+import { Controller, Get, HttpException, HttpStatus, Logger, Post, Request, UseGuards } from '@nestjs/common';
 import { AppService } from './app.service';
 import { Ip } from './decorators/ip.decorator';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller()
 export class AppController {
@@ -31,4 +32,16 @@ export class AppController {
     // throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
     return this.appService.getHello();
   }
+  
+  // passport test 위해
+  // passport 에서는 @UseGuards(AuthGuard(''))을 통해 controller의 라우터가 실행되기 전에
+  // 그에따른 return된 값을 req객체에 추가해준다
+
+  @UseGuards(AuthGuard('local'))
+  @Post('login')
+  async login1(@Request() req) {
+    console.log(req.user)
+    return req.user;
+  }
+
 }

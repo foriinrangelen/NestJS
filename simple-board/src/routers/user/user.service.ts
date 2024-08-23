@@ -8,6 +8,7 @@ import { hash, compare } from 'bcrypt';
 import { LoginUserDto } from './dto/login-user-dto';
 // import { Jwt } from 'jsonwebtoken'
 import { JwtService } from '@nestjs/jwt'
+
 @Injectable()
 export class UserService {
     // 유저 데이터 조회위해
@@ -74,6 +75,12 @@ export class UserService {
         const DEFAULT_SALT= 11;
         return hash(password, DEFAULT_SALT);
     }
+    
+    // 유저 정보찾는 method
+    async getUserByUserId(userId: string){
+        console.log("들어옴123")
+        return this.userRepository.findOneBy({userId});
+    }
 
     // 로그인 메서드
     async login(data: LoginUserDto){
@@ -81,9 +88,7 @@ export class UserService {
 
   
             // 아이디 있는지 확인
-            const user= await this.userRepository.findOneBy({
-                userId,
-            });
+            const user= await this.getUserByUserId(userId)
             // 아이디가 없다면 404
             if(!user) throw new HttpException('NOT_FOUND',HttpStatus.NOT_FOUND );
             // 아이디가 있다면 비밀번호 확인 (bcrypt 모듈의 compare)
