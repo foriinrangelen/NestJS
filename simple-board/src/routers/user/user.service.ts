@@ -6,13 +6,15 @@ import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user-dto';
 import { hash, compare } from 'bcrypt';
 import { LoginUserDto } from './dto/login-user-dto';
-
+// import { Jwt } from 'jsonwebtoken'
+import { JwtService } from '@nestjs/jwt'
 @Injectable()
 export class UserService {
     // 유저 데이터 조회위해
     constructor(
         @InjectRepository(User)
         private userRepository: Repository<User>,
+        private jwtService: JwtService
     ){}
 
     // 전체 유저 가져오는 method
@@ -87,8 +89,18 @@ export class UserService {
             // 아이디가 있다면 비밀번호 확인 (bcrypt 모듈의 compare)
             const match= await compare(password, user.password)
             if(!match) throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED );
-            console.log("로그인성공")
-            return user;
+            
+            // jwt사용하여 클라이언트에 accessToken 발행하기
+            // 1. payload 생성
+            const payload= {
+                userId,
+                name: user.name
+            }
+            // 2. jwt.sign(페이로드, 시크릿키)메서드로 토큰생성하기 
+            // const accessToken= jwt.sign(payload, 'secretKey')
+            const accessToken= await this.jwtService.signAsync(payload);
+
+            return {accessToken, user};
 
 
     }

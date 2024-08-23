@@ -6,8 +6,8 @@ import { LoggingMiddleware } from './middlewares/logging.middleware';
 import  ConfigModule  from './config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './routers/user/user.module';
-
-
+import { jwtConstants } from './jwt/constants';
+import { JwtModule } from '@nestjs/jwt';
 @Module({
   // nest g mo board 로 생성하면 자동으로 모듈이 메인 모듈에 import 된다
   // 환경설정 위한 ConfigModule.forRoot() import
@@ -25,6 +25,7 @@ import { UserModule } from './routers/user/user.module';
       synchronize: false, // 엔터티가 테이블의 정의를 가지고있는데 엔터티가 변할때 이 변환값을 실제 DB에 반영할건지,(false 추천)
       logging: true, // 데이터베이스 query를 확인가능
     }),
+   
     BoardModule,
     UserModule
   ],
