@@ -43,6 +43,10 @@ yarn add bcrypt
 ``` 
 yarn add @nestjs/jwt
 ```
+#### 11. passport 사용위해 
+``` 
+yarn add @nestjs/passport passport passport-local
+```
 > #### nvm (node version manager)사용해보기
 > 노드버전 관리를 위해사용
 > ```
