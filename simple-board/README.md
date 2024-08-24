@@ -39,9 +39,9 @@ yarn add ts-node, tsconfig-paths dotenv
 ``` 
 yarn add bcrypt
 ```
-#### ~~10. jwt 사용위해 jsonwebtoken 설치~~ yarn add @nestjs/jwt
+#### ~~10. jwt 사용위해 jsonwebtoken 설치~~ 패스포트에서 jwt사용 위해
 ``` 
-yarn add @nestjs/jwt
+yarn add @nestjs/jwt passport-jwt -D @types/passport-jwt
 ```
 #### 11. passport 사용위해(passport-local은 타입추가설치)
 ``` 
