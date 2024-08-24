@@ -15,15 +15,19 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
 
         super({ usernameField: 'userId' });
     }
-    
+    // 2. 로컬전략의 validate 실행
     async validate(username: string, password: string) {
         console.log("들어옴");
+        
+        // 4. 유저가 있다면 다시 돌아와서 나머지 전략수행
         const user= await this.authService.validateUser(username, password);
         console.log(user,"222222222");
+        // 유저가 없다면 401
         if(!user) {
             throw new UnauthorizedException();
             
         }
+        // 있다면 유저 반환
         return user;
     }
 
