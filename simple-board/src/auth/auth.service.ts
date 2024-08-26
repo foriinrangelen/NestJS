@@ -35,6 +35,8 @@ export class AuthService {
     // 6. jwt를 생성하기위한 페이로드 구성 후 accessToken 생성
     async login(user: User) {
         const payload= {
+            // 토큰을 발행할때 id까지 발행, 웹토큰을 복호하면 id를 같이 알아낼 수 있다
+            id: user.id,
             userId: user.userId,
             name: user.name
         };

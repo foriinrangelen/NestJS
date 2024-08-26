@@ -9,7 +9,7 @@ import { jwtConstants } from "src/jwt/constants";
 export class JwtStrategy extends PassportStrategy(Strategy){
 
     constructor(){
-        // 로그인 전략을 실행해서 생성한 웹토큰은 자동으로 클라이언트의 요청헤더에 들어가고,
+        // 로그인 전략을 실행해서 생성한 웹토큰은 클라이언트의 요청헤더에 넣어주고,
         // 이 요청헤더에 있는 bearer 토큰을 가져와서 검증해야하기때문에 가져오기
         super({
             jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),

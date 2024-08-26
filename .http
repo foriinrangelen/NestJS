@@ -1,12 +1,12 @@
 ### GET
 GET http://localhost:3000/board
 
-### POST
+### POST 게시물 생성
 POST http://localhost:3000/board
 content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcklkIjoia3l5ODYyOSIsIm5hbWUiOiJreXkiLCJpYXQiOjE3MjQ2NzkzMjAsImV4cCI6MTcyNDY4MjkyMH0.KTbNAXSRXTCy5KcL-fGChmHSbRszmx7tR8R_xZvDldA
 
 {
-    "userId":"7",
     "contents":"변경123"
 }
 
@@ -55,3 +55,8 @@ content-type: application/json
     "userId": "kyy8629",
     "password": "kyykyykyy"
 }
+
+### 유저 ME
+GET http://localhost:3000/me
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcklkIjoia3l5ODYyOSIsIm5hbWUiOiJreXkiLCJpYXQiOjE3MjQ2NzkzMjAsImV4cCI6MTcyNDY4MjkyMH0.KTbNAXSRXTCy5KcL-fGChmHSbRszmx7tR8R_xZvDldA

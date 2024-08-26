@@ -50,9 +50,11 @@ export class AppController {
     return this.authService.login(req.user)
   }
 
+  // 웹토큰이 유효한지 확인하는 데코레이터
   @UseGuards(JwtAuthGuard)
   @Get('me')
   async me(@Request() req) {
+
     return req.user
   }
 

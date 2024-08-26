@@ -1,6 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Board } from "./board.entity";
+import { Exclude } from "class-transformer";
 
 // @Entity(): 이 클래스가 데이터베이스의 테이블에 해당함을 나타내며 클래스명은 기본적으로 테이블명으로 사용
 @Entity()
@@ -15,6 +16,10 @@ export class User {
     @ApiProperty ( {description:"유저 비밀번호",} )
     // 비밀번호 compare 위해 제거 (24 08/21)
     // @Column({ select:false}) // @Column({ select: false }): 이 필드는 쿼리에서 기본적으로 선택되지 않도록 설정, 비밀번호와 같은 민감한 정보를 숨기기 위해 사용
+    // 직렬화(Serialization)란, 객체나 데이터 구조를 특정 형식(주로 JSON, XML 등)으로 변환하여 저장하거나 전송할 수 있도록 하는 과정
+    // @Exclude(): 객체 직렬화를할때 데이터를 포함시키지 않기위해 (내부적으로 nestjs는 객체를 직렬화한다)
+    // 사실 @Exclude()사용 하는것보다 @Column({ select:false})를 사용해서 감추고, login확인단에서 where 조건문으로 id pw 를 같이 넣어 db에서 확인하기
+    @Exclude() // @Exclude() 데코레이터를 추가하고 controller에 @UseInterceptors(ClassSerializerInterceptor) 추가해서 사용
     @Column()
     password: string;
 

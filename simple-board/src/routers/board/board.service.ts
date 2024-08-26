@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, UnauthorizedException } from '@nestjs/common';
 import { CreateBoardDto } from './dto/create-board.dto';
 import { UpdateBoardDto } from './dto/update-board.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -56,19 +56,22 @@ export class BoardService
         // return board
         //save() 사용
         const board= await this.boardRepository.save(data)
-        return "게시물 생성"
+        return board
     }
     
     // // 게시물 수정하기: update()
     // UpdateBoardDto 사용
-    async update(id: number, data: UpdateBoardDto){
+    async update(userId: string, id: number, data: UpdateBoardDto){
         // 1. 우선 게시물이 있는지 찾기
         const board= await this.getBoardId(id)
 
         // 2. 게시물이 없다면 404
         if(!board) throw new HttpException('NOT FOUND', HttpStatus.NOT_FOUND)
         
-            // 3. 게시물이 있다면
+        // 로그인한 사용자의 id와 보드에 저장된 userId가 같지않다면 error
+        if(userId!== board.userId) throw new UnauthorizedException();
+
+        // 3. 게시물이 있다면
         return this.boardRepository.update(id, {
             ...data // controller에서 받아온 수정내용 넣기
         })
@@ -76,11 +79,15 @@ export class BoardService
     }
 
     // // 게시물 삭제하기: remove()
-    async delete(id: number){
+    async delete(userId: string, id: number){
         // 1. 우선 게시물이 있는지 찾기
         const board= await this.getBoardId(id)
         // 2. 게시물이 없다면 404
         if(!board) throw new HttpException('NOT FOUND', HttpStatus.NOT_FOUND)
+
+        // 로그인한 사용자의 id와 보드에 저장된 userId가 같지않다면 error
+        if(userId!== board.userId) throw new UnauthorizedException();
+
         // 3. 게시물이 있다면 삭제
         // 주의: 아이디나 조건값이 아니라 찾은 엔티티를 넣어줘야한다
         return this.boardRepository.remove(board)

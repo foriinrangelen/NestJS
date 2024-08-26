@@ -1,8 +1,10 @@
 import { ApiTags } from '@nestjs/swagger';
 import { BoardService } from './board.service';
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Request, UnauthorizedException, UseGuards, ValidationPipe } from '@nestjs/common';
 import { CreateBoardDto } from './dto/create-board.dto';
 import { UpdateBoardDto } from './dto/update-board.dto';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { userInfo } from 'src/decorators/user-info.decorator';
 
 // ✅NestJS에서 제공하는 내장 파이프
 // validationPipe, ParseIntPipe, ParseFloatPipe, ParseArrayPipe etc. --------------------------------
@@ -33,28 +35,49 @@ export class BoardController {
 
     // 게시물 생성
     @Post()
+    // 게시물 생성할때, jwt 토큰이 유효한지 확인
+    @UseGuards(JwtAuthGuard)
     // ✅new ValidationPipe(): @Body 안에 new ValidationPipe() 객체를 생성해주면 DTO타입에 맞는 유효성 검사가 시작된다
     // dto 생성후 create method의 data type을 dto로 지정해주기
-    create(@Body(new ValidationPipe()) data: CreateBoardDto) {
-        return this.boardService.create(data);
+    // @userInfo() 커스템 데코레이터에서 request 객체를 userInfo로 가져오고 request객체의 id 가져오기
+    create(
+        @userInfo() userInfo, 
+        // @Body(new ValidationPipe()) 
+        // data: CreateBoardDto
+        // 요청에서 바디에 담긴 contents만 가져오기
+        @Body('contents')  contents: string
+    ) {    
+        console.log(userInfo.id)
+        console.log(contents)
+        // 어차피 로그인이 안되면 @UseGuards(JwtAuthGuard)에서 걸리지만 안전하게 예외처리
+        if(!userInfo) throw new UnauthorizedException();
+        return this.boardService.create({
+            userId: userInfo.id,
+            contents
+        });
     }
 
 
     // 게시물 업데이트
     @Put(':id')
-    update(
+    @UseGuards(JwtAuthGuard)
+    update(        
+        @userInfo() userInfo, 
         @Param('id', ParseIntPipe) id: number,
         // class-validator 실행시키기
-        @Body(new ValidationPipe()) data: UpdateBoardDto
+        @Body(new ValidationPipe()) data: UpdateBoardDto,
     ) {
-        return this.boardService.update(id, data);
+        console.log(userInfo,"1111111111111111")
+        return this.boardService.update(userInfo.id, id, data);
     } 
     
     // 게시물 삭제
     @Delete(':id')
+    @UseGuards(JwtAuthGuard)
     remove(
+        @userInfo() userInfo, 
         @Param('id', ParseIntPipe) id: number,
     ) {
-        return this.boardService.delete(id);
+        return this.boardService.delete(userInfo.id, id);
     }
 }
