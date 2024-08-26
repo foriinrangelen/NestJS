@@ -23,3 +23,35 @@ DELETE http://localhost:3000/board/2
 
 ### GET
 GET http://localhost:3000/
+
+
+### GET
+GET http://localhost:3000/user
+
+### POST(회원가입)
+POST http://localhost:3000/user
+content-type: application/json
+
+{
+    "userId": "kyy8629",
+    "name": "kyy",
+    "password": "kyykyykyy"
+}
+
+### POST(로그인)
+POST http://localhost:3000/user/login
+content-type: application/json
+
+{
+    "userId": "kyy8629",
+    "password": "kyykyykyy"
+}
+
+### POST(로그인) passports
+POST http://localhost:3000/login1
+content-type: application/json
+
+{
+    "userId": "kyy8629",
+    "password": "kyykyykyy"
+}
