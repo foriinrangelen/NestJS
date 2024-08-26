@@ -400,5 +400,6 @@ import { ConfigService } from '@nestjs/config'; // ✅ import
 private readonly configService: ConfigService, // ✅ ConfigService 의존성주입받기
 console.log(this.configService.get<string>('ENVIRONMENT'),"1"); // ✅ 사용해보기
 ```
-
+### 객체 직렬화 알아보기
+NestJS에서는 데이터의 타입에 따라 자동으로 객체를 직렬화 하며 **ClassSerializerInterceptor** 가 응답을 보내기 전에 응답 객체의 Entity, DTO에 class transformer데코레이터를 맞게 응답객체를 변환해준다
 
