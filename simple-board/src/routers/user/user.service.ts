@@ -32,7 +32,7 @@ export class UserService {
             },
             // select로 특정 columns만 가져오기
             select:{
-                id:true,
+                userNo:true,
             }
         })
     }

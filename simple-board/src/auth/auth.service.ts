@@ -36,7 +36,7 @@ export class AuthService {
     async login(user: User) {
         const payload= {
             // 토큰을 발행할때 id까지 발행, 웹토큰을 복호하면 id를 같이 알아낼 수 있다
-            id: user.id,
+            id: user.userNo,
             userId: user.userId,
             name: user.name
         };

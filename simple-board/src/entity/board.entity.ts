@@ -5,8 +5,8 @@ import { User } from "./user.entity";
 
 @Entity() // @Entity({name: ''}) 처럼 Entity안에 name을 따로 명시해주지않으면 class명이 table명과 mapping 된다
 export class Board {
-    @PrimaryGeneratedColumn({ name: "id"  })
-    id: number;
+    @PrimaryGeneratedColumn({ name: "boardNo"  })
+    boardNo: number;
 
     @ApiProperty ( {description:"유저아이디",} )
     @Column() // 만약 연결한 DB의 column명이 다르다면 @Column({name: ''}) 처럼 decorator안에 넣어줘서 맞출 수 있다

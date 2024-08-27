@@ -30,14 +30,14 @@ export class BoardService
     // findOneBy()는 기본적으로 where절을 포함
     // findOneBy() vs findOne(): findOneBy() where절이 필요없으며 간단하게하나를 가져올때 사용,findOne()은 where절과 orderby등 여러 sql을 사용할때 사용
 
-    find(id: number) {
+    find(boardNo: number) {
         // console.log(typeof id)        
         // return this.boardRepository.findOneBy({
         //     id: 
         // })
         const board= this.boardRepository.findOne({
             where:{
-                id
+                boardNo
             },
             // relations:{user:true}: join으로 제약이걸려있는 user까지 가져오기
             relations:{
@@ -95,9 +95,9 @@ export class BoardService
     }
 
     // 공통으로 사용하는 ID가져오는 함수 
-    async getBoardId(id:number){
+    async getBoardId(boardNo:number){
         return this.boardRepository.findOneBy({
-            id
+            boardNo
         })
     }
 }

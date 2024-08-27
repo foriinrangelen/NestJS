@@ -27,9 +27,9 @@ export class BoardController {
     // board/13 일시 Param으로 id값 가져오기
     // 에서 @Param()에 두번째 매개변수로 ParseIntPipe 넣어주면 파이프단에서 형변환이 된다
     @Get(':id')
-    find(@Param('id', ParseIntPipe ) id: number) {
-        console.log(typeof id)
-        return this.boardService.find(id);
+    find(@Param('id', ParseIntPipe ) boardNo: number) {
+        console.log(typeof boardNo)
+        return this.boardService.find(boardNo);
     }
 
 
@@ -47,12 +47,14 @@ export class BoardController {
         // 요청에서 바디에 담긴 contents만 가져오기
         @Body('contents')  contents: string
     ) {    
-        console.log(userInfo.id)
+        console.log(userInfo,"1111111111111111")
+        console.log(userInfo.userId)
         console.log(contents)
         // 어차피 로그인이 안되면 @UseGuards(JwtAuthGuard)에서 걸리지만 안전하게 예외처리
         if(!userInfo) throw new UnauthorizedException();
+
         return this.boardService.create({
-            userId: userInfo.id,
+            userId: userInfo.userId,
             contents
         });
     }
@@ -63,12 +65,12 @@ export class BoardController {
     @UseGuards(JwtAuthGuard)
     update(        
         @userInfo() userInfo, 
-        @Param('id', ParseIntPipe) id: number,
+        @Param('id', ParseIntPipe) boardNo: number,
         // class-validator 실행시키기
         @Body(new ValidationPipe()) data: UpdateBoardDto,
     ) {
         console.log(userInfo,"1111111111111111")
-        return this.boardService.update(userInfo.id, id, data);
+        return this.boardService.update(userInfo.userId, boardNo, data);
     } 
     
     // 게시물 삭제
@@ -78,6 +80,6 @@ export class BoardController {
         @userInfo() userInfo, 
         @Param('id', ParseIntPipe) id: number,
     ) {
-        return this.boardService.delete(userInfo.id, id);
+        return this.boardService.delete(userInfo.userId, id);
     }
 }

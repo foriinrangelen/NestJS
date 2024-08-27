@@ -6,8 +6,8 @@ import { Exclude } from "class-transformer";
 // @Entity(): 이 클래스가 데이터베이스의 테이블에 해당함을 나타내며 클래스명은 기본적으로 테이블명으로 사용
 @Entity()
 export class User {
-    @PrimaryGeneratedColumn({ name: "id"  }) // 순차적으로 증가하는 컬럼
-    id: number;
+    @PrimaryGeneratedColumn({ name: "userNo"  }) // 순차적으로 증가하는 컬럼
+    userNo: number;
 
     @ApiProperty( {description:"유저 아이디",example:"admin"} )
     @Column({ unique: true  }) // @Column({ unique: true }): 이 필드가 데이터베이스에서 유일한 값이어야 함

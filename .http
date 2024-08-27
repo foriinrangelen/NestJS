@@ -4,22 +4,24 @@ GET http://localhost:3000/board
 ### POST 게시물 생성
 POST http://localhost:3000/board
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcklkIjoia3l5ODYyOSIsIm5hbWUiOiJreXkiLCJpYXQiOjE3MjQ2NzkzMjAsImV4cCI6MTcyNDY4MjkyMH0.KTbNAXSRXTCy5KcL-fGChmHSbRszmx7tR8R_xZvDldA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcklkIjoia3l5ODYyOSIsIm5hbWUiOiJreXkiLCJpYXQiOjE3MjQ3MzMyODQsImV4cCI6MTcyNDczNjg4NH0.ff1OmVHto7VomjpF1z4pJTEY8KyoSpxL40WpmSMfwNQ
 
 {
-    "contents":"변경123"
+    "contents":"게시물2"
 }
 
 ### PUT
 PUT http://localhost:3000/board/2
 content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcklkIjoia3l5ODYyOSIsIm5hbWUiOiJreXkiLCJpYXQiOjE3MjQ3MzMyODQsImV4cCI6MTcyNDczNjg4NH0.ff1OmVHto7VomjpF1z4pJTEY8KyoSpxL40WpmSMfwNQ
 
 {
     "contents":"12342"
 }
 
 ### DELETE
-DELETE http://localhost:3000/board/2
+DELETE http://localhost:3000/board/3
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcklkIjoia3l5ODYyOSIsIm5hbWUiOiJreXkiLCJpYXQiOjE3MjQ3MzM3NjksImV4cCI6MTcyNDczNzM2OX0.0tC2PDzVD5Td1cVaGlYF8JONUHC4MCzWgECx8Pqep9Y
 
 ### GET
 GET http://localhost:3000/
@@ -33,9 +35,9 @@ POST http://localhost:3000/user
 content-type: application/json
 
 {
-    "userId": "kyy8629",
-    "name": "kyy",
-    "password": "kyykyykyy"
+    "userId": "kyy86291",
+    "name": "kyy1",
+    "password": "kyykyykyy1"
 }
 
 ### POST(로그인)
@@ -59,4 +61,4 @@ content-type: application/json
 ### 유저 ME
 GET http://localhost:3000/me
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcklkIjoia3l5ODYyOSIsIm5hbWUiOiJreXkiLCJpYXQiOjE3MjQ2NzkzMjAsImV4cCI6MTcyNDY4MjkyMH0.KTbNAXSRXTCy5KcL-fGChmHSbRszmx7tR8R_xZvDldA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcklkIjoia3l5ODYyOSIsIm5hbWUiOiJreXkiLCJpYXQiOjE3MjQ3MzMyODQsImV4cCI6MTcyNDczNjg4NH0.ff1OmVHto7VomjpF1z4pJTEY8KyoSpxL40WpmSMfwNQ
