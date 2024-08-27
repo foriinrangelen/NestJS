@@ -30,19 +30,21 @@ export class BoardService
     // findOneBy()는 기본적으로 where절을 포함
     // findOneBy() vs findOne(): findOneBy() where절이 필요없으며 간단하게하나를 가져올때 사용,findOne()은 where절과 orderby등 여러 sql을 사용할때 사용
 
-    find(boardNo: number) {
-        // console.log(typeof id)        
+    async find(boardNo: number) {
+       
         // return this.boardRepository.findOneBy({
         //     id: 
         // })
-        const board= this.boardRepository.findOne({
+        const board= await this.boardRepository.findOne({
             where:{
-                boardNo
+                boardNo,
             },
+            // 0827 굳이 유저정보를 가져올 필요가없음
             // relations:{user:true}: join으로 제약이걸려있는 user까지 가져오기
-            relations:{
-                user:true
-            }
+            // relations: { user: true }는 TypeORM에서 엔티티 간의 관계를 설정하여 관련된 데이터를 함께 조회할 때 사용하는 옵션
+            // relations:{
+                // user:true
+            // }
         })
         if(!board) throw new HttpException('Not Found', HttpStatus.NOT_FOUND)
         return board

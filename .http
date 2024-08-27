@@ -1,6 +1,10 @@
 ### GET
 GET http://localhost:3000/board
 
+### GET2
+GET http://localhost:3000/board/1
+
+
 ### POST 게시물 생성
 POST http://localhost:3000/board
 content-type: application/json
@@ -20,8 +24,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcklkI
 }
 
 ### DELETE
-DELETE http://localhost:3000/board/3
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcklkIjoia3l5ODYyOSIsIm5hbWUiOiJreXkiLCJpYXQiOjE3MjQ3MzM3NjksImV4cCI6MTcyNDczNzM2OX0.0tC2PDzVD5Td1cVaGlYF8JONUHC4MCzWgECx8Pqep9Y
+DELETE http://localhost:3000/board/4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcklkIjoia3l5ODYyOTEiLCJuYW1lIjoia3l5MSIsImlhdCI6MTcyNDczMzgwOSwiZXhwIjoxNzI0NzM3NDA5fQ.z1vfnch2789Q95M6fzvtOHbMD-PkHSOc4-7PooGt28g
 
 ### GET
 GET http://localhost:3000/
@@ -54,8 +58,8 @@ POST http://localhost:3000/login
 content-type: application/json
 
 {
-    "userId": "kyy8629",
-    "password": "kyykyykyy"
+    "userId": "kyy86291",
+    "password": "kyykyykyy1"
 }
 
 ### 유저 ME
